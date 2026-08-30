@@ -38,8 +38,7 @@ COTS
 - Bit Manipulation Macros
 - Standard Data Types
 
-## 🎯 Purposeبف
-
+## 🎯 Purpose
 This project is being developed as a reusable driver library for **Embedded Systems development using AVR microcontrollers**.
 
 More drivers and modules will be added as the project evolves.
