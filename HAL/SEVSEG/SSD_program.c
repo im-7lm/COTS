@@ -1,21 +1,21 @@
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
+#include "../../LIB/STD_TYPES.h"
+#include "../../LIB/BIT_MATH.h"
 
 #include "SSD_interface.h"
-#include "MCAL/DIO/DIO_interface.h"
+#include "../../MCAL/DIO/DIO_interface.h"
 
 static const u8 Numbers[10] = {
     // Cathode Values
-    0b00111111,
-    0b00000110,
-    0b01011011,
-    0b01001111,
-    0b01100110,
-    0b01101101,
-    0b01111101,
-    0b00000111,
-    0b01111111,
-    0b01101111,
+    0b0111111,
+    0b0000110,
+    0b1011011,
+    0b1001111,
+    0b1100110,
+    0b1101101,
+    0b1111101,
+    0b0000111,
+    0b1111111,
+    0b1101111,
 };
 
 u8 SEVSEG_Init(u8 copy_Port)
@@ -34,7 +34,8 @@ u8 SEVSEG_DisplayNumber(u8 copy_Port, u8 copy_u8Number, u8 copy_u8Type, u8 copy_
         LocalStateError = 1;
     }
 
-    DIO_u8SetPinValue(copy_u8PowerPort, copy_u8PowerPin, copy_u8Type ? 0 : 1);
+    DIO_u8SetPinDirection(copy_u8PowerPort, copy_u8PowerPin, DIO_u8PIN_OUTPUT);
+    DIO_u8SetPinValue(copy_u8PowerPort, copy_u8PowerPin, copy_u8Type ? 1 : 0);
     DIO_u8SetPortValue(copy_Port, copy_u8Type ? ~Numbers[copy_u8Number] : Numbers[copy_u8Number]);
 
     return LocalStateError;
