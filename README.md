@@ -8,6 +8,12 @@ A collection of reusable **Embedded C drivers for the ATmega32 microcontroller**
 COTS
 ├── APP
 ├── HAL
+│   ├── LED
+│   │   ├── LED_interface.h
+│   │   └── LED_program.c
+│   └── SEVSEG
+│       ├── SEVSEG_interface.h
+│       └── SEVSEG_program.c
 ├── LIB
 │   ├── BIT_MATH.h
 │   └── STD_TYPES.h
@@ -29,9 +35,14 @@ COTS
 
 ## 🔧 Current Drivers
 
+### HAL
+
+- **LED** – LED control driver
+- **Seven Segment** – Seven-segment display control driver
+
 ### MCAL
 
-- DIO (Digital Input/Output)
+- **DIO** – Digital Input/Output driver
 
 ### LIB
 
@@ -39,6 +50,7 @@ COTS
 - Standard Data Types
 
 ## 🎯 Purpose
+
 This project is being developed as a reusable driver library for **Embedded Systems development using AVR microcontrollers**.
 
-More drivers and modules will be added as the project evolves.
+The current implementation includes DIO, LED, and Seven Segment drivers, with more drivers and modules planned as the project evolves.

@@ -1,7 +1,7 @@
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 
-#include "LED.h"
+#include "LED_interface.h"
 #include "MCAL/DIO/DIO_interface.h"
 
 u8 LED_u8TurnOn(u8 Copy_u8Port, u8 Copy_u8Pin)

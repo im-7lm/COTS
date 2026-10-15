@@ -224,6 +224,7 @@ u8 DIO_u8GetPinValue(u8 Copy_u8Port, u8 Copy_u8Pin, u8 *Copy_pu8Value)
 }
 
 u8 DIO_u8GetPortValue(u8 Copy_u8Port, u8 *Copy_pu8Value)
+
 {
     u8 Local_u8StateError = 0;
 
