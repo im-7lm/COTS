@@ -8,49 +8,53 @@ A collection of reusable **Embedded C drivers for the ATmega32 microcontroller**
 COTS
 ├── APP
 ├── HAL
+│   ├── Buzzer
+│   ├── DC Motor
+│   ├── IR Sensor
 │   ├── LED
-│   │   ├── LED_interface.h
-│   │   └── LED_program.c
-│   └── SEVSEG
-│       ├── SEVSEG_interface.h
-│       └── SEVSEG_program.c
+│   ├── Seven Segment
+│   └── Switch
 ├── LIB
-│   ├── BIT_MATH.h
-│   └── STD_TYPES.h
 └── MCAL
     └── DIO
-        ├── DIO_config.h
-        ├── DIO_interface.h
-        ├── DIO_private.h
-        ├── DIO_program.c
-        └── DIO_register.h
 ```
 
 ## 🏗️ Architecture
 
-- **APP** – Application layer
-- **HAL** – Hardware Abstraction Layer
-- **MCAL** – Microcontroller Abstraction Layer
-- **LIB** – Common libraries and utilities
+* **APP** – Application layer containing application-specific logic.
+* **HAL** – Hardware Abstraction Layer for interfacing with external hardware components.
+* **MCAL** – Microcontroller Abstraction Layer for controlling microcontroller peripherals.
+* **LIB** – Common utilities, standard data types, and bit manipulation macros.
 
-## 🔧 Current Drivers
+## 🔧 Implemented Drivers
 
 ### HAL
 
-- **LED** – LED control driver
-- **Seven Segment** – Seven-segment display control driver
+* **LED** – LED control.
+* **Seven Segment** – Displaying numeric digits.
+* **Switch** – Push-button input handling.
+* **IR Sensor** – Infrared sensor interfacing.
+* **DC Motor** – DC motor control.
+* **Buzzer** – Buzzer control.
 
 ### MCAL
 
-- **DIO** – Digital Input/Output driver
+* **DIO** – Digital Input/Output pin and port control.
 
 ### LIB
 
-- Bit Manipulation Macros
-- Standard Data Types
+* **BIT_MATH** – Bit manipulation macros.
+* **STD_TYPES** – Standard data type definitions.
 
 ## 🎯 Purpose
 
-This project is being developed as a reusable driver library for **Embedded Systems development using AVR microcontrollers**.
+This project aims to build a reusable driver library for **Embedded C development on AVR microcontrollers**, following a layered architecture that promotes modularity, code reusability, and maintainability.
 
-The current implementation includes DIO, LED, and Seven Segment drivers, with more drivers and modules planned as the project evolves.
+The library is continuously evolving, with more HAL components and MCAL peripherals planned for future development.
+
+## 🚀 Future Plans
+
+* Develop additional HAL drivers.
+* Implement more MCAL peripherals, including timers, interrupts, and ADC.
+* Improve driver documentation and error handling.
+* Build practical embedded systems projects using the library.
