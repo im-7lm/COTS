@@ -18,14 +18,14 @@ static const u8 Numbers[10] = {
     0b1101111,
 };
 
-u8 SEVSEG_Init(u8 copy_Port)
+u8 SEVSEG_Init(SSD_t *copy_SSD)
 {
-    u8 LocalStateError = DIO_u8SetPortDirection(copy_Port, OUTPUT);
+    u8 LocalStateError = DIO_u8SetPortDirection(copy_SSD->Port, OUTPUT);
 
     return LocalStateError;
 }
 
-u8 SEVSEG_DisplayNumber(u8 copy_Port, u8 copy_u8Number, u8 copy_u8Type, u8 copy_u8PowerPin, u8 copy_u8PowerPort)
+u8 SEVSEG_DisplayNumber(SSD_t *copy_SSD, u8 copy_u8Number)
 {
     u8 LocalStateError = 0;
 
@@ -34,43 +34,43 @@ u8 SEVSEG_DisplayNumber(u8 copy_Port, u8 copy_u8Number, u8 copy_u8Type, u8 copy_
         LocalStateError = 1;
     }
 
-    DIO_u8SetPinDirection(copy_u8PowerPort, copy_u8PowerPin, DIO_u8PIN_OUTPUT);
-    DIO_u8SetPinValue(copy_u8PowerPort, copy_u8PowerPin, copy_u8Type ? 1 : 0);
-    DIO_u8SetPortValue(copy_Port, copy_u8Type ? ~Numbers[copy_u8Number] : Numbers[copy_u8Number]);
+    DIO_u8SetPinDirection(copy_SSD->PowerPort, copy_SSD->PowerPin, DIO_u8PIN_OUTPUT);
+    DIO_u8SetPinValue(copy_SSD->PowerPort, copy_SSD->PowerPin, copy_SSD->Type ? 1 : 0);
+    DIO_u8SetPortValue(copy_SSD->Port, copy_SSD->Type ? ~Numbers[copy_u8Number] : Numbers[copy_u8Number]);
 
     return LocalStateError;
 }
 
-u8 SEVSEG_TurnOff(u8 copy_Port, u8 copy_u8Type)
+u8 SEVSEG_TurnOff(SSD_t *copy_SSD)
 {
     u8 LocalStateError = 0;
 
-    if (copy_u8Type != SEVSEG_u8COMMON_ANODE &&
-        copy_u8Type != SEVSEG_u8COMMON_CATHODE)
+    if (copy_SSD->Type != SEVSEG_u8COMMON_ANODE &&
+        copy_SSD->Type != SEVSEG_u8COMMON_CATHODE)
     {
         return 1;
     }
 
     LocalStateError = DIO_u8SetPortValue(
-        copy_Port,
-        copy_u8Type ? 0xFF : 0x00);
+        copy_SSD->Port,
+        copy_SSD->Type ? 0xFF : 0x00);
 
     return LocalStateError;
 }
 
-u8 SEVSEG_EnableDisplay(u8 copy_u8PowerPort, u8 copy_u8PowerPin, u8 copy_u8Type)
+u8 SEVSEG_EnableDisplay(SSD_t *copy_SSD)
 {
     u8 LocalStateError = 0;
 
-    if (copy_u8Type != SEVSEG_u8COMMON_ANODE &&
-        copy_u8Type != SEVSEG_u8COMMON_CATHODE)
+    if (copy_SSD->Type != SEVSEG_u8COMMON_ANODE &&
+        copy_SSD->Type != SEVSEG_u8COMMON_CATHODE)
     {
         return 1;
     }
 
     LocalStateError = DIO_u8SetPinDirection(
-        copy_u8PowerPort,
-        copy_u8PowerPin,
+        copy_SSD->PowerPort,
+        copy_SSD->PowerPin,
         DIO_u8PIN_OUTPUT);
 
     if (LocalStateError != 0)
@@ -79,26 +79,26 @@ u8 SEVSEG_EnableDisplay(u8 copy_u8PowerPort, u8 copy_u8PowerPin, u8 copy_u8Type)
     }
 
     LocalStateError = DIO_u8SetPinValue(
-        copy_u8PowerPort,
-        copy_u8PowerPin,
-        copy_u8Type ? DIO_u8PIN_HIGH : DIO_u8PIN_LOW);
+        copy_SSD->PowerPort,
+        copy_SSD->PowerPin,
+        copy_SSD->Type ? DIO_u8PIN_HIGH : DIO_u8PIN_LOW);
 
     return LocalStateError;
 }
 
-u8 SEVSEG_DisableDisplay(u8 copy_u8PowerPort, u8 copy_u8PowerPin, u8 copy_u8Type)
+u8 SEVSEG_DisableDisplay(SSD_t *copy_SSD)
 {
     u8 LocalStateError = 0;
 
-    if (copy_u8Type != SEVSEG_u8COMMON_ANODE &&
-        copy_u8Type != SEVSEG_u8COMMON_CATHODE)
+    if (copy_SSD->Port != SEVSEG_u8COMMON_ANODE &&
+        copy_SSD->Type != SEVSEG_u8COMMON_CATHODE)
     {
         return 1;
     }
 
     LocalStateError = DIO_u8SetPinDirection(
-        copy_u8PowerPort,
-        copy_u8PowerPin,
+        copy_SSD->PowerPort,
+        copy_SSD->PowerPin,
         DIO_u8PIN_OUTPUT);
 
     if (LocalStateError != 0)
@@ -107,9 +107,9 @@ u8 SEVSEG_DisableDisplay(u8 copy_u8PowerPort, u8 copy_u8PowerPin, u8 copy_u8Type
     }
 
     LocalStateError = DIO_u8SetPinValue(
-        copy_u8PowerPort,
-        copy_u8PowerPin,
-        copy_u8Type ? DIO_u8PIN_LOW : DIO_u8PIN_HIGH);
+        copy_SSD->PowerPort,
+        copy_SSD->PowerPin,
+        copy_SSD->Type ? DIO_u8PIN_LOW : DIO_u8PIN_HIGH);
 
     return LocalStateError;
 }
