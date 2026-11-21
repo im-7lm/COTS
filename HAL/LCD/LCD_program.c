@@ -53,6 +53,11 @@ void LCD_voidSendString(u8 *Copy_u8String)
 
 void LCD_voidInit(void)
 {
+    DIO_u8SetPortDirection(LCD_DATA_PORT, DIO_u8PORT_OUTPUT);
+
+    DIO_u8SetPinDirection(LCD_CTRL_PORT, LCD_RS_PIN, DIO_u8PIN_OUTPUT);
+    DIO_u8SetPinDirection(LCD_CTRL_PORT, LCD_RW_PIN, DIO_u8PIN_OUTPUT);
+    DIO_u8SetPinDirection(LCD_CTRL_PORT, LCD_E_PIN, DIO_u8PIN_OUTPUT);
     // wait for more than 30ms
     _delay_ms(40);
 
