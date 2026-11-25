@@ -36,6 +36,7 @@ COTS
 * **IR Sensor** – Infrared sensor interfacing.
 * **DC Motor** – DC motor control.
 * **Buzzer** – Buzzer control.
+* **OLED** – SSD1306 128x64 I2C OLED text display (software I2C over DIO).
 
 ### MCAL
 

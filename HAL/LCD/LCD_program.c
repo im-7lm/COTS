@@ -51,6 +51,44 @@ void LCD_voidSendString(u8 *Copy_u8String)
     }
 }
 
+void LCD_voidGoToXY(u8 Copy_u8XPos, u8 Copy_u8Ypos)
+{
+    u8 Local_u8Address;
+
+    if (Copy_u8XPos == 0)
+    {
+        Local_u8Address = Copy_u8Ypos;
+    }
+    else if (Copy_u8XPos == 1)
+    {
+        Local_u8Address = Copy_u8Ypos + 0x40;
+    }
+
+    LCD_voidSendCommand(Local_u8Address + 128);
+}
+
+void LCD_voidWriteCustomCharacter(u8 *Copy_pu8Pattern, u8 Copy_u8PatternNumber, u8 Copy_XPo, u8 Copy_YPo)
+{
+    u8 Local_u8CGRAMAddress = 0, Local_u8Iterator;
+
+    // Calc the CGRAM Address
+    Local_u8CGRAMAddress = Copy_u8PatternNumber * 8; // 8 is each Block size in the CGRAM Memory
+
+    LCD_voidSendCommand(Local_u8CGRAMAddress + 64); // Send CGRAM address command to LCD with bit 6, clearing bit 7
+
+    // write the pattern into CGRAM
+    for (Local_u8Iterator = 0; Local_u8Iterator < 8; Local_u8Iterator++)
+    {
+        LCD_voidSendData(Copy_pu8Pattern[Local_u8Iterator]);
+    }
+
+    // go back to the DDRAM to display the pattern
+    LCD_voidGoToXY(Copy_XPo, Copy_YPo);
+
+    // diaplay the pattern in the CGRAM
+    LCD_voidSendData(Copy_u8PatternNumber);
+}
+
 void LCD_voidInit(void)
 {
     DIO_u8SetPortDirection(LCD_DATA_PORT, DIO_u8PORT_OUTPUT);
